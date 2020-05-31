@@ -1,0 +1,223 @@
+/* Base Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  color: #333333;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+  /* background-image: url('./images/covidst.png');
+  background-size: contain;
+  background-position: center; */
+
+}
+
+.covid-image {
+    background-image: url('./images/covidst.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 300px;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+    color: #396684;
+}
+
+/* Container */
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1.6rem;
+}
+
+/* Header */
+
+.header {
+  background: #43799c;
+  color: white;
+  padding: 1.6rem 0;
+}
+
+.header__title {
+  font-size: 3.2rem;
+  margin-bottom: .4rem;
+}
+
+.header__subtitle {
+  font-size: 1.6rem;
+  font-weight: 300;
+}
+
+/* Actions Bar */
+
+.actions {
+    background-color: #F7F7F7;
+    border-bottom: 1px solid #dedfe0;
+    padding: .8rem
+}
+
+.actions__container {
+    align-items: center;
+    display: flex;
+    width: 100%;
+    /* max-width: 60rem; */
+    margin: 0 auto;
+    min-height: 3rem;
+    padding: 0 1.6rem;
+}
+
+.actions__container--spaced {
+    justify-content: space-between
+}
+
+nav {
+    background: orange;
+    width: 100%;
+
+}
+
+nav ul {
+    display: inline-flex;
+    list-style: none;
+    justify-content: space-evenly;
+    align-content: space-between;
+    /* background: orange; */
+    
+
+}
+
+nav ul li {
+    padding: 10px 50px;
+    /* margin: 5px auto; */
+    font-size: 16px;
+    background: rgb(157, 184, 5);
+}
+
+
+
+/* Form Inputs */
+
+.input {
+    border: 1px solid #DEDFE0;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    font-weight: 300;
+    height: 3rem;
+    margin-right: .8rem;
+    padding: .4rem .8rem;
+}
+
+.dropdown {
+    border-radius: 0;
+    border: 1px solid #DEDFE0;
+    background: white;
+    font-size: 1.4rem;
+    font-weight: 300;
+    height: 3rem;
+    margin-right: .8rem;
+    margin-top: 1rem;
+}
+
+
+/* Data List */
+
+
+#data-area {
+    background: #fff;
+}
+
+.list-head {
+    text-decoration: none;
+    color: #333333;
+    font-size: 1.6rem;
+    background: #F7F7F7;
+    border: 1px solid #dedfe0;
+    margin: 1.6rem 0;
+    padding: 1.6rem;
+    display: block;
+    transition: background .3s ease;
+    line-height: 3rem;
+}
+
+.list-item {
+    color: #666;
+    border: 1px solid #dedfe0;
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 2rem;
+    /* margin: 1rem 0; */
+    padding: 1rem 1rem;
+}
+
+.list-item:hover {
+    background: #eeeeee;
+}
+
+.dist, .count, .new {
+    min-width: 200px;
+    display: inline-flex;
+    /* color: #666; */
+    /* font-size: 1.6rem; */
+    /* font-weight: 300; */
+    /* margin: 0 1rem; */
+
+}
+
+.count {
+    min-width: 50px;
+    display:inline-block;
+    text-align: right;
+    text-emphasis: strong;
+}
+
+.new {
+    color: red;
+    font-size: 1.3rem;
+    padding-left: 1rem;
+    width: 50px;
+}
+
+.sl-no {
+    width: 16px;
+    display: inline-block;
+    text-align: right;
+}
+
+.total-item {
+    font-size: 2rem;
+    padding: 2rem;
+}
+
+.list-item__title {
+    font-size: 1.8rem;
+    margin-bottom: .4rem
+}
+
+a {
+    text-decoration: none;
+    color: #eee;
+}
+
+.container-footer {
+    font-size: 1.2rem;
+    padding-top: 3rem;
+    text-align: center;
+    background: #222;
+    color: #999;
+    padding: 10px;
+    line-height: 20px;
+}
