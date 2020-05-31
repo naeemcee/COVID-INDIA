@@ -7,25 +7,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <script src="https://kit.fontawesome.com/20c5b204f4.js" crossorigin="anonymous"></script> -->
 </head>
+
 <body>
     <div class="container">
-        <h1>COVID-19: INDIA Tracker via API call</h1>
-        
-        <hr>
-        <br><br>
-        <div id="data-area"></div>
-    </div>
-<div class="covid-image"></div>
-<!-- <br><br><br><br><br><br><br><br><br> -->
+        <header>
+            <h1 class="header__title">COVID-19: INDIA Tracker</h1>
 
+            <div id="summary-block">
+                <div class="india-summary-label">
+                    <p>INDIA SUMMARY</p>
+                </div>
+
+                <div id="india-summary">
+                    <div class="india-summary-cases">
+                        <p>TOTAL CASES</p>
+                        <p id="india-cases"></p>
+                    </div>
+                    <div class="india-summary-new">
+                        <p>NEW CASES</p>
+                        <p id="india-new"></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <h2 id="state-name"></h2>        
+            <!-- <hr> -->
+
+            <div class="head-row">
+                <select id="dd-state-names" class="dropdown" name="state-name"></select>
+                <div class="summary">
+                    <span id="total-cases-label">Total cases</span>
+                    <span id="total-cases"></span>
+                </div>
+                <div class="summary">
+                    <span id="new-cases-label">New</span>
+                    <span id="new-cases"></span>
+                </div>
+                <p></p>
+            </div>
+        </header>
+
+        <div id="data-area"></div>
+<!--         <div id="india-summary">
+            <div class="india-summary-label">
+                <p>INDIA SUMMARY</p>
+            </div>
+            <div class="india-summary-cases">
+                <p>TOTAL CASES</p>
+                <p id="india-cases"></p>
+            </div>
+            <div class="india-summary-new">
+                <p>NEW CASES</p>
+                <p id="india-new"></p>
+            </div>
+        </div>
+ -->        
+        <div class="bottom-row">
+            <p>Wash hands frequently | Practice social distancing</p>
+        </div>
+ 
+    </div>
+
+    <div class="covid-image"></div>
 
     <div class="container-footer">
         <i class="fas fa-virus"></i>
         <p>API provided by <a href="https://api.covid19india.org">covid19india.org</a></p>
         <p>Educational project | &copy 2020 naeemcee</p>
     </div>
+
     <script src="moment.min.js"></script>
     <script src="covid.js"></script>
 </body>

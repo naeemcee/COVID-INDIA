@@ -4,6 +4,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* border: 1px red solid; */
 }
 
 html {
@@ -12,12 +13,13 @@ html {
 
 body {
   color: #333333;
+  background: #ceeafc;
+
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
   /* background-image: url('./images/covidst.png');
   background-size: contain;
   background-position: center; */
-
 }
 
 .covid-image {
@@ -25,7 +27,7 @@ body {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 300px;
+    min-height: 200px;
 }
 
 button {
@@ -41,20 +43,80 @@ a {
 .container {
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 1.6rem;
+  padding: 0 1rem;
 }
 
 /* Header */
 
-.header {
-  background: #43799c;
-  color: white;
-  padding: 1.6rem 0;
+.container h1, h2 {
+    margin: 10px auto;
+    text-align: center;
 }
+
+.container h1 {
+    font-size: 26px;
+}
+
+/* header { */
+    /* background: #43799c; */
+    /* color: white; */
+    /* position: sticky;
+    position: -webkit-sticky;
+    top: 0; */
+  /* } */
+
+  /* header h1 { */
+    /* background: #2783c1; */
+  /* } */
+
+.head-row {
+    margin: 10px 0;
+    padding: 10px 2px 10px 20px;
+    width: 100%;
+    display: flex;
+    border: 1px #bbb solid;
+    background: #fff;
+    color: #333;
+    border-radius: 5px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+}
+
+#state-name {
+    font-size: 26px;
+    font-weight: 300;
+    width: 70%;
+    /* display: inline-block; */
+}
+
+.summary {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+}
+
+#total-cases-label, #new-cases-label {
+    font-size: 12px;
+    color: #999;
+}
+
+#total-cases {
+    font-size: 22px;
+    color: rgb(80, 199, 245);
+    width: 50%;
+}
+
+#new-cases {
+    color: rgb(252, 182, 60);
+    font-size: 22px;
+    width: 50%;
+}
+
 
 .header__title {
   font-size: 3.2rem;
-  margin-bottom: .4rem;
+  margin: 1.5rem 0;
 }
 
 .header__subtitle {
@@ -84,52 +146,21 @@ a {
     justify-content: space-between
 }
 
-nav {
-    background: orange;
-    width: 100%;
-
-}
-
-nav ul {
-    display: inline-flex;
-    list-style: none;
-    justify-content: space-evenly;
-    align-content: space-between;
-    /* background: orange; */
-    
-
-}
-
-nav ul li {
-    padding: 10px 50px;
-    /* margin: 5px auto; */
-    font-size: 16px;
-    background: rgb(157, 184, 5);
-}
-
-
-
-/* Form Inputs */
-
-.input {
-    border: 1px solid #DEDFE0;
-    border-radius: 5px;
-    font-size: 1.4rem;
-    font-weight: 300;
-    height: 3rem;
-    margin-right: .8rem;
-    padding: .4rem .8rem;
-}
+/* User Input */
 
 .dropdown {
-    border-radius: 0;
-    border: 1px solid #DEDFE0;
-    background: white;
-    font-size: 1.4rem;
+    border-radius: 5px;
+    /* border: 3px solid rgb(255, 255, 255); */
+    /* background:#eee; */
+    /* color: #222; */
+    background: #333;
+    color: #eee;
+    font-size: 16px;
     font-weight: 300;
-    height: 3rem;
-    margin-right: .8rem;
-    margin-top: 1rem;
+    /* height: 3rem; */
+    margin-right: 3rem;
+    /* margin-top: 1rem; */
+    width: 50%;
 }
 
 
@@ -140,7 +171,7 @@ nav ul li {
     background: #fff;
 }
 
-.list-head {
+/* .list-head {
     text-decoration: none;
     color: #333333;
     font-size: 1.6rem;
@@ -151,24 +182,25 @@ nav ul li {
     display: block;
     transition: background .3s ease;
     line-height: 3rem;
-}
+} */
 
 .list-item {
-    color: #666;
+    color: #333;
     border: 1px solid #dedfe0;
     font-size: 1.6rem;
     font-weight: 300;
-    line-height: 2rem;
-    /* margin: 1rem 0; */
+    line-height: 1.8rem;
     padding: 1rem 1rem;
+    border-radius: 5px;
 }
+
 
 .list-item:hover {
     background: #eeeeee;
 }
 
 .dist, .count, .new {
-    min-width: 200px;
+    /* min-width: 200px; */
     display: inline-flex;
     /* color: #666; */
     /* font-size: 1.6rem; */
@@ -177,22 +209,29 @@ nav ul li {
 
 }
 
+.dist {
+    width: 55%;
+}
+
 .count {
-    min-width: 50px;
+    width: 20%;
     display:inline-block;
     text-align: right;
     text-emphasis: strong;
+    /* border: 1px solid black; */
 }
 
 .new {
     color: red;
     font-size: 1.3rem;
-    padding-left: 1rem;
-    width: 50px;
+    padding-left: 1.5rem;
+    width: 10%;
+    /* border: 1px solid black; */
+
 }
 
 .sl-no {
-    width: 16px;
+    width: 18px;
     display: inline-block;
     text-align: right;
 }
@@ -200,6 +239,21 @@ nav ul li {
 .total-item {
     font-size: 2rem;
     padding: 2rem;
+}
+
+.bottom-row {
+    margin: 10px 0;
+    padding: 15px 20px;
+    width: 100%;
+    display: inline-flex;
+    border: 1px grey solid;
+    background: #444;
+    color: #888;
+    border-radius: 5px;
+    height: 60px;
+    text-align: center;
+    justify-content: center;
+    font-size: 12px;
 }
 
 .list-item__title {
@@ -212,6 +266,55 @@ a {
     color: #eee;
 }
 
+
+#summary-block {
+    background: #333;
+    border-radius: 5px;
+    color: #ccc;
+    padding-bottom: 10px ;
+    /* margin: 10px auto; */
+    /* display:flex; */
+    /* flex-direction: row; */
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+}
+
+#india-summary {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.india-summary-cases, .india-summary-new {
+    font-size: 12px;
+    border: 1px white
+}
+
+.india-summary-label {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 10px;
+    padding: 10px;
+    border-bottom: 2px solid #666;
+    letter-spacing: 5px;
+}
+
+#india-cases, #india-new {
+    font-size: 28px;
+}
+
+#india-cases {
+    color: rgb(80, 199, 245);
+}
+
+#india-new
+{
+    color: rgb(252, 182, 60);
+}
+
 .container-footer {
     font-size: 1.2rem;
     padding-top: 3rem;
@@ -221,3 +324,12 @@ a {
     padding: 10px;
     line-height: 20px;
 }
+
+/* @media (max-width: 600px) {
+    #india-summary {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+    }
+}
+ */
