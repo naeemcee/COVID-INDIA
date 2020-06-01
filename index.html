@@ -4,6 +4,7 @@
     <title>COVID-19 INDIA Tracker</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,8 +13,13 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="header__title">COVID-19: INDIA Tracker</h1>
-
+            <div class="topnav">
+                <div class="active">COVID-19: INDIA Tracker</div>
+                <div id="myLinks">
+                    <a href="#news">Coming soon!</a>
+                </div>
+                <a href="javascript:void(0);" class="icon" onclick="hamBurgClick()"><i class="fa fa-bars"></i></a>
+            </div>
             <div id="summary-block">
                 <div class="india-summary-label">
                     <p>INDIA SUMMARY</p>
@@ -21,49 +27,32 @@
 
                 <div id="india-summary">
                     <div class="india-summary-cases">
-                        <p>TOTAL CASES</p>
+                        <p>TOTAL</p>
                         <p id="india-cases"></p>
                     </div>
                     <div class="india-summary-new">
-                        <p>NEW CASES</p>
+                        <p>TODAY</p>
                         <p id="india-new"></p>
                     </div>
                 </div>
             </div>
-
-
-            <h2 id="state-name"></h2>        
-            <!-- <hr> -->
-
-            <div class="head-row">
-                <select id="dd-state-names" class="dropdown" name="state-name"></select>
-                <div class="summary">
-                    <span id="total-cases-label">Total cases</span>
-                    <span id="total-cases"></span>
-                </div>
-                <div class="summary">
-                    <span id="new-cases-label">New</span>
-                    <span id="new-cases"></span>
-                </div>
-                <p></p>
-            </div>
         </header>
 
+            <div class="head-row">
+                    <select id="dd-state-names" class="dropdown" name="state-name"></select>
+                <div class="summary">
+                    <p id="total-cases-label">Total cases</p>
+                    <p id="total-cases"></p>
+                </div>
+                <div class="summary">
+                    <p id="new-cases-label">Today</p>
+                    <p id="new-cases"></p>
+                </div>
+                <!-- <p></p> -->
+            </div>
+
         <div id="data-area"></div>
-<!--         <div id="india-summary">
-            <div class="india-summary-label">
-                <p>INDIA SUMMARY</p>
-            </div>
-            <div class="india-summary-cases">
-                <p>TOTAL CASES</p>
-                <p id="india-cases"></p>
-            </div>
-            <div class="india-summary-new">
-                <p>NEW CASES</p>
-                <p id="india-new"></p>
-            </div>
-        </div>
- -->        
+      
         <div class="bottom-row">
             <p>Wash hands frequently | Practice social distancing</p>
         </div>
@@ -74,8 +63,8 @@
 
     <div class="container-footer">
         <i class="fas fa-virus"></i>
-        <p>API provided by <a href="https://api.covid19india.org">covid19india.org</a></p>
         <p>Educational project | &copy 2020 naeemcee</p>
+        <p>API powred by <a href="https://api.covid19india.org">covid19india.org</a></p>
     </div>
 
     <script src="moment.min.js"></script>
