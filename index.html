@@ -15,8 +15,9 @@
             <div class="title"><h1>COVID19 INDIA Live Tracker</h1></div>
             <div class="menu-button"></div>
         </div>
-        <div id="error-area"></div>
         
+        <div id="error-area"></div>
+
         <div class="sliding-menu" hidden>
             <ul>
                 <a href="#"><li>item one</a></li>
@@ -25,40 +26,34 @@
             </ul>
         </div>
 
-        <div class="sticky-wrapper">
         <div id="summary-block">
             <p class="summary-block-title">INDIA SUMMARY</p>
             <div class="summary-block-data-container">
                 <div class="summary-block-data">
                     <p class="summary-block-label">TOTAL</p>
                     <p id="summary-block-confirmed" class="summary-block-number"></p>
-                    <p id="summary-block-delta-confirmed" class="summary-block-delta-number"></p>
                 </div>
                 <div class="summary-block-data" hidden>
                     <p class="summary-block-label">TODAY</p>
                     <p id="summary-block-today" class="summary-block-number"></p>
-                    <p id="summary-block-delta-today" class="summary-block-delta-number"></p>
                 </div>
                 <div class="summary-block-data" >
                     <p class="summary-block-label">ACTIVE</p>
                     <p id="summary-block-active" class="summary-block-number"></p>
-                    <p id="summary-block-delta-active" class="summary-block-delta-number"></p>
                 </div>
                 <div class="summary-block-data" >
                     <p class="summary-block-label">RECOVERED</p>
                     <p id="summary-block-recovered" class="summary-block-number"></p>
-                    <p id="summary-block-delta-recovered" class="summary-block-delta-number"></p>
                 </div>
                 <div class="summary-block-data" >
                     <p class="summary-block-label">FATALITY</p>
                     <p id="summary-block-fatality" class="summary-block-number"></p>
-                    <p id="summary-block-delta-fatality" class="summary-block-delta-number"></p>
                 </div>
             </div>
             <p id="update-time"></p>
         </div>
 
-        <!-- <div class="sticky-wrapper"> -->
+        <div class="sticky-wrapper">
             <div class="dd-bar">
                 <select name="list" class="dropdown" id="dd-list"></select>
                 <div class="dd-bar-data-container">
@@ -72,10 +67,10 @@
                     </div>
                 </div>
             </div>
-            <div id="table-header-row" class="table-header-label-row" hidden>
-                <p id="sortby-name"  class="table-header-label1"></p>
-                <p id="sortby-total"  class="table-header-label2"></p>
-                <p id="sortby-today"  class="table-header-label2"></p>
+            <div class="table-header-label-row" hidden>
+                <p class="table-header-label1"></p>
+                <p class="table-header-label2">TOTAL</p>
+                <p class="table-header-label2">TODAY</p>
             </div>
         </div>
         
@@ -87,21 +82,20 @@
             </div>
 
         </div>
-        <div class="info">
-            <!-- <p>First case in India reported in Kerala on 30 JAN 2020, a student who came from Wuhan. Over the next one month, the total reported cases were onlhy 3.</p> -->
-            <!-- <p class="note">NOTE: district-wise <em>daily incremental cases count</em>  may not add up to state total as there is some delay in updating district-wise details.</p> -->
-        </div>
     </div>
 
-    
-    <div class="container-footer">
-        <img src="./images/lungs-virus-solid.png" alt="">
-        <p>COVID-19 INDIA Live Tracker (v1.6.0)  |  &copy 2020 naeemcee</p>
-        <p>Data acquired via <a href="https://api.covid19india.org">covid19india.org</a></p>
+    <div class="info">
+
+
     </div>
-    
+    <div class="container-footer">
+        <i class="fas fa-virus"></i>
+        <p>COVID-19 INDIA Live Tracker (v1.5.0)  |  &copy 2020 naeemcee</p>
+        <p>Data aquired via <a href="https://api.covid19india.org">covid19india.org</a></p>
+    </div>
+
     <div class="spacer"></div>
-    
+      
 </body>
 
 <script type="module" src="./app.js"></script>

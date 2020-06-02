@@ -14,13 +14,10 @@ body {
   background: #ceeafc;
   font-family:  Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
-  background-image: url('./images/v-bgnd-tile.png');
-  background-repeat: repeat;
-  background-attachment: fixed;
 }
 
 .container {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 5px;
 }
@@ -33,7 +30,7 @@ a {
 /* HEADER AREA ===============================*/
 
 .title-bar {
-  margin: 3px 0;
+  margin: 10px 0;
   /* text-align: center; */
   /* background-color: rgb(213, 168, 108); */
   background-color: rgb(80, 199, 245);
@@ -64,6 +61,8 @@ ul, li {
 }
 
 
+
+
 /* SUMMARY BLOCK ==============================*/
 
 #summary-block {
@@ -71,7 +70,6 @@ ul, li {
   background-color: #333;
   color: #dddddd;
   padding: 10px 0;
-  
   border-radius: 5px;
 }
 
@@ -91,7 +89,6 @@ ul, li {
   flex-basis: 20%;
   color: #aaa;
   animation: fade 1.5s forwards;
-  padding: 0 0 5px 0;
 }
 
 .summary-block-label {
@@ -103,33 +100,27 @@ ul, li {
 .summary-block-number {
   font-size: 20px;
   font-weight: 800;
-  padding: 10px 0 5px 0;
+  padding: 10px 0;
 }
 
-#summary-block-confirmed, #summary-block-delta-confirmed {
+#summary-block-confirmed {
   color:rgb(80, 199, 245);
 }
 
-#summary-block-active, #summary-block-delta-active {
-  color: rgb(134, 89, 225);
+#summary-block-active {
+  color: rgb(90, 144, 237);
 }
 
-#summary-block-today, #summary-block-delta-today {
+#summary-block-today {
   color: rgb(252, 182, 60);
 }
 
-#summary-block-recovered, #summary-block-delta-recovered {
+#summary-block-recovered {
   color: rgb(98, 211, 54);
 }
 
-#summary-block-fatality, #summary-block-delta-fatality {
+#summary-block-fatality {
   color: rgb(233, 91, 75);
-}
-
-.summary-block-delta-number {
-  font-size: 16px;
-  font-weight: 300;
-  padding: 0;
 }
 
 #update-time{
@@ -139,7 +130,6 @@ ul, li {
 
 .time-highlight {
   color:#bbb;
-  font-style: italic
 }
 
 
@@ -147,7 +137,7 @@ ul, li {
 
 .sticky-wrapper {
   position: sticky;
-  top: 2px;
+  top: 0;
   font-size: 16px;
   background-color: #ceeafc;
 }
@@ -165,7 +155,6 @@ ul, li {
   width: 50%;
   margin-left: 4px;
   font-size: 16px;
-  padding: 5px 0;
   background-color: #222;
   color: #fff;
   /* outline: 2px solid #fff; */
@@ -176,7 +165,6 @@ ul, li {
   flex: 1;
   justify-content: space-around;
   animation: fade 1.5s forwards;
-  visibility: hidden;
 }
 
 .dd-bar-data {
@@ -189,19 +177,20 @@ ul, li {
   padding: 2px 0;
 }
 
-.dd-bar-number {
-  font-size: 18px;
-  font-weight: 800;
-  padding: 2px 0;
+#dd-bar-confirmed {
   color:rgb(80, 199, 245);
 
 }
 
-#dd-bar-today {
-  /* color: rgb(252, 182, 60); */
-  font-weight: 300;
+.dd-bar-number {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 2px 0;
 }
 
+#dd-bar-today {
+  color: rgb(252, 182, 60);
+}
 
 .table-header-label-row {
   display: flex;
@@ -210,24 +199,21 @@ ul, li {
   font-size: 14px;
   font-weight: 800;
   border: 2px solid #fff;
-  margin: 3px 0 10px 0;
+  margin-top: 3px;
   text-decoration: underline;
   text-underline-offset: 2px;
-  box-shadow: 0 15px 15px rgb(222,222,222,0.95);
 }
 
 .table-header-label1 {
   flex-basis: 52%;
   padding: 5px;
   /* margin-left: 5px; */
-  cursor: pointer;
 }
 
 .table-header-label2, .table-header-label3 {
   width: 24%;
   padding: 5px;
   text-align: center;
-  cursor: pointer;
 }
 
 /* DATA TABLE ==============================*/
@@ -290,8 +276,7 @@ ul, li {
 
 .td-new {
   /* color: rgb(252, 182, 60); */
-  /* color: rgb(232, 174, 75); */
-  color:rgb(80, 199, 245);
+  color: rgb(232, 174, 75);
   font-size: 90%;
 }
 
@@ -319,31 +304,13 @@ ul, li {
   background: #222;
   color: #999;
   padding: 10px;
-  /* line-height: 20px; */
-}
-
-img {
-  padding: 5px 0;
-  width: 30px;
-  /* animation: fade 1s forwards; */
+  line-height: 20px;
 }
 
 .error {
   text-align: center;
-  color: red;
   font-size: 14px;
-  padding: 5px 0 10px 0;
-
-}
-
-.note {
-  text-align: center;
-  font-size: 14px;
-  color: #333;
-  padding: 15px;
-  background-color: #999;
-  margin: 20px 0;
-  border-radius: 5px;
+  color: rgb(201, 0, 0);
 }
 
 @keyframes fade {
