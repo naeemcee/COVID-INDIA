@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./images/favicon.png">
+    <link rel="stylesheet" href="./public/style.css">
+    <link rel="icon" href="./public/images/favicon.png">
     <title>COVID19 INDIA LiveTracker</title>
     <meta name="keywords" content="covid covid-19 covid19 corona india virus pandemic">
 </head>
@@ -12,7 +12,7 @@
     <div class="container">
         <div class="title-bar">
             <div class="logo"></div>
-            <div class="title"><h1>COVID19 INDIA Live Tracker</h1></div>
+            <div class="title"><h1>COVID19 INDIA Tracker</h1></div>
             <div class="menu-button"></div>
         </div>
         <div id="error-area"></div>
@@ -25,9 +25,8 @@
             </ul>
         </div>
 
-        <div class="sticky-wrapper">
         <div id="summary-block">
-            <p class="summary-block-title">INDIA SUMMARY</p>
+            <p id="summary-block-title"  class="summary-block-title">INDIA SUMMARY</p>
             <div class="summary-block-data-container">
                 <div class="summary-block-data">
                     <p class="summary-block-label">TOTAL</p>
@@ -58,7 +57,7 @@
             <p id="update-time"></p>
         </div>
 
-        <!-- <div class="sticky-wrapper"> -->
+        <div class="sticky-wrapper">
             <div class="dd-bar">
                 <select name="list" class="dropdown" id="dd-list"></select>
                 <div class="dd-bar-data-container">
@@ -72,10 +71,10 @@
                     </div>
                 </div>
             </div>
-            <div id="table-header-row" class="table-header-label-row" hidden>
-                <p id="sortby-name"  class="table-header-label1"></p>
-                <p id="sortby-total"  class="table-header-label2"></p>
-                <p id="sortby-today"  class="table-header-label2"></p>
+            <div class="table-header-label-row" hidden>
+                <p class="table-header-label1"></p>
+                <p class="table-header-label2">TOTAL</p>
+                <p class="table-header-label2">TODAY</p>
             </div>
         </div>
         
@@ -95,15 +94,16 @@
 
     
     <div class="container-footer">
-        <img src="./images/lungs-virus-solid.png" alt="">
-        <p>COVID-19 INDIA Live Tracker (v1.6.0)  |  &copy 2020 naeemcee</p>
+        <img src="./public/images/lungs-virus-solid.png" alt="">
+        <p>COVID-19 INDIA Live Tracker (v2.0.0)  |  &copy 2020 naeemcee</p>
         <p>Data acquired via <a href="https://api.covid19india.org">covid19india.org</a></p>
     </div>
     
     <div class="spacer"></div>
     
+    <script src="./public/scripts/bundle.js"></script>
+    <!-- <script src="./moment.min.js"></script> -->
+
 </body>
 
-<script type="module" src="./app.js"></script>
-<script src="./moment.min.js"></script>
 </html>
