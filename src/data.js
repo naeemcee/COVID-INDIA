@@ -1,4 +1,4 @@
-import {settings, addlData, rawData, newMaster } from './index'
+import {settings, addlData, rawData, masterData } from './index'
 
 const loadMasterData = () => {                          //load masterData from localstorage
     const masterJSON = localStorage.getItem('masterdata')  
@@ -14,7 +14,7 @@ const cleanupRawData = () => {              //cleanup and save raw-data into mas
     
     for (let item in addlData.statewise) {
     
-        newMaster.push({
+        masterData.push({
             name: addlData.statewise[item].state,
             confirmed: Number(addlData.statewise[item].confirmed),
             deltaconfirmed: Number(addlData.statewise[item].deltaconfirmed),
@@ -28,23 +28,23 @@ const cleanupRawData = () => {              //cleanup and save raw-data into mas
             
         if (item > 0) {
             natSummary.push({
-                name: newMaster[item].name,
-                confirmed: newMaster[item].confirmed,
-                deltaconfirmed: newMaster[item].deltaconfirmed,
-                deaths: newMaster[item].deaths,
-                deltadeaths: newMaster[item].deltadeaths,
-                recovered: newMaster[item].recovered,
-                deltarecovered: newMaster[item].deltarecovered
+                name: masterData[item].name,
+                confirmed: masterData[item].confirmed,
+                deltaconfirmed: masterData[item].deltaconfirmed,
+                deaths: masterData[item].deaths,
+                deltadeaths: masterData[item].deltadeaths,
+                recovered: masterData[item].recovered,
+                deltarecovered: masterData[item].deltarecovered
             })    
         }
     }
     
-    for (let item in newMaster) {           //get district details added to each state 
+    for (let item in masterData) {           //get district details added to each state 
         let distSummary = []
     
         for (let j in rawData) {
-            if (newMaster[item].name.toLowerCase() == rawData[j].state.toLowerCase()) {
-                // newMaster[item].districtData = {...rawData[j].districtData}
+            if (masterData[item].name.toLowerCase() == rawData[j].state.toLowerCase()) {
+                //masterData[item].districtData = {...rawData[j].districtData}
                 //the above line is a simple one line replacement of the below for loop however, this copies the structure of the rawdata in terms of nested delta numbers within district data this is avoided now.
                 
             for (let k in rawData[j].districtData) {
@@ -60,29 +60,29 @@ const cleanupRawData = () => {              //cleanup and save raw-data into mas
                 //sort dist summary on 'confirmed'
                 sortData(distSummary, 'confirmed')
             }
-            newMaster[item].districtData = distSummary
+            masterData[item].districtData = distSummary
             } 
         } 
-        if (!newMaster[item].districtData) {
-            newMaster[item].districtData = []
+        if (!masterData[item].districtData) {
+            masterData[item].districtData = []
         }
     }
     
     sortData (natSummary , 'confirmed')
-    newMaster[0].name = "All States"
-    newMaster[0].districtData = [...natSummary]
-    sortData(newMaster, 'confirmed')
-    console.log('NEW MASTER >>', newMaster)
+    masterData[0].name = "All States"
+    masterData[0].districtData = [...natSummary]
+    sortData(masterData, 'confirmed')
+    console.log('NEW MASTER >>', masterData)
     
     // API data recociliation - for audit purpose only
     let distDeltaConfirmed = 0
     let i = 1       //exclude 'all states' item
-    for (i ; i < newMaster.length; i++) {
-        for (let j in newMaster[i].districtData) {
-        distDeltaConfirmed += Number(newMaster[i].districtData[j].deltaconfirmed)
+    for (i ; i < masterData.length; i++) {
+        for (let j in masterData[i].districtData) {
+        distDeltaConfirmed += Number(masterData[i].districtData[j].deltaconfirmed)
         }
     }
-    console.log(`New Cases > from State data: ${Number(newMaster[0].deltaconfirmed)}, from Dist data: ${distDeltaConfirmed}`)
+    console.log(`New Cases > from State data: ${Number(masterData[0].deltaconfirmed)}, from Dist data: ${distDeltaConfirmed}`)
 }
 
 /* 

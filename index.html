@@ -11,25 +11,25 @@
 <body>
     <div class="container">
         <div class="title-bar">
-            <div class="logo"></div>
+            <div class="logo">&#9734</div>
             <div class="title"><h1>COVID19 INDIA Live Tracker</h1></div>
-            <div class="menu-button"></div>
+            <div id="menu-button">&#9776</div>
         </div>
         <div id="error-area"></div>
         
-        <div class="sliding-menu" hidden>
+        <div id="sliding-menu">
+            <a href="javascript:void(0)" class="close-btn">&times;</a>
             <ul>
-                <a href="#"><li>item one</a></li>
+                <li>under development</li>
+                <!-- <a href="#"><li>item one</a></li>
                 <a href="#"><li>item two</a></li>
-                <a href="#"><li>item three</a></li>
+                <a href="#"><li>item three</a></li> -->
             </ul>
         </div>
 
         <div class="sticky-wrapper">
             <div id="summary-block">
-                <p id="summary-block-title"  class="summary-block-title" hidden>INDIA SUMMARY</p>
-                <div class="dropdown-bar">
-                    <!-- <select name="list" class="dropdown" id="dd-list"></select> -->
+                <div class="nav-bar">
                     <div id="home-button"></div>
                     <div id="state-name">ALL STATES</div>
                     <div id="back-button"><</div>
@@ -84,7 +84,7 @@
     
     <div class="container-footer">
         <img src="./public/images/lungs-virus-solid.png" alt="">
-        <p>COVID-19 INDIA Live Tracker (v2.1.0)  |  &copy 2020 naeemcee</p>
+        <p>COVID-19 INDIA Live Tracker (v2.2.0)  |  &copy 2020 naeemcee</p>
         <p>Data acquired via <a href="https://api.covid19india.org">covid19india.org</a></p>
     </div>
     

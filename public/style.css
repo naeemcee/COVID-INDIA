@@ -23,6 +23,7 @@ body {
   max-width: 600px;
   margin: 0 auto;
   padding: 5px;
+  position: relative;
 }
 
 a {
@@ -48,6 +49,8 @@ a {
   /* outline: 1px solid #555; */
   /* flex: 1; */
   width: 50px;
+  font-size: 22px;
+  text-align: center;
 }
 
 .title-bar  h1 {
@@ -55,10 +58,43 @@ a {
   flex: 1;
 }
 
-.menu-button {
-  /* outline: 1px solid #555; */
-  /* flex: 1; */
+#menu-button {
+  font-size: 22px;
+  text-align: center;
   width: 50px;
+  cursor: pointer;
+}
+
+#sliding-menu {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 80vh;
+  width: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.85);
+  overflow-x: hidden;
+  transition: 0.5s;
+  z-index: 1;
+  margin-bottom: 10px;
+  transform-origin: top;
+  color: #999;
+  border-radius: 0px 0px 10px 10px;
+  /* padding-right: 20px; */
+  /* display: none; */
+  /* display: block; */
+}
+
+#sliding-menu > ul {
+  padding: 20px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  font-size: 22px;
+  cursor: pointer;
 }
 
 ul, li {
@@ -75,7 +111,7 @@ ul, li {
   background-color: #ceeafc;
 }
 
-.dropdown-bar {
+.nav-bar {
   display: flex;
   justify-content: space-between;
 
@@ -132,20 +168,6 @@ ul, li {
   padding: 0 10px;
   align-items: center;
   justify-content: center;
-}
-
-.dropdown {
-  width: 50%;
-  /* margin-left: 4px; */
-  height:35px;
-  font-size: 16px;
-  background-color: #333;
-  /* background-color: rgb(252, 182, 60); */
-  /* background-color: rgb(80, 199, 245); */
-  color: #eee;
-  /* outline: 2px solid #fff; */
-  text-transform: uppercase;
-  visibility: none;
 }
 
 #summary-block {

@@ -1,0 +1,9 @@
+//Plan
+
+delete all codes related to dropdown menu
+replace data table with grid container
+refactor summary block rendering
+general code cleanup
+beautify hover effects; maybe differently in state summary and dist summary
+body background image upgrade
+save settings?
