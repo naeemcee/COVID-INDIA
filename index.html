@@ -15,16 +15,33 @@
             <div class="title"><h1>COVID19 INDIA Live Tracker</h1></div>
             <div id="menu-button">&#9776</div>
         </div>
+        <noscript class="container error">This page requires JavaScript to work properly. Please enable JavaScript and refesh.</noscript>
         <div id="error-area"></div>
         
         <div id="sliding-menu">
             <a href="javascript:void(0)" class="close-btn">&times;</a>
-            <ul>
+            <section class="prefs">
+                <p>Preferences</p>
+                <div class="num-format">
+                    <input id="chk-numFormat" type="checkbox" value='numFormat' checked="true">
+                    <label for="chk-numFormat">Indian Number Format</label>
+                </div>
+                <div class="auto-refresh">
+                    <input id="chk-autoUpdate" type="checkbox" value='autoRefresh' checked="false">
+                    <label for="chk-autoUpdate">Auto refresh data every 15 mins</label>
+                </div>
+                <div class="show-zero-states">
+                    <input id="chk-zero-states" type="checkbox" value='autoRefresh' checked="false">
+                    <label for="chk-zero-states">Include states with zero cases</label>
+                </div>
+            </section>
+            
+            <!-- <ul>
                 <li>under development</li>
-                <!-- <a href="#"><li>item one</a></li>
+                <a href="#"><li>item one</a></li>
                 <a href="#"><li>item two</a></li>
-                <a href="#"><li>item three</a></li> -->
-            </ul>
+                <a href="#"><li>item three</a></li>
+            </ul> -->
         </div>
 
         <div class="sticky-wrapper">
@@ -37,15 +54,11 @@
                 </div>
                 <div class="summary-block-data-container">
                     <div class="summary-block-data">
-                        <p class="summary-block-label">TOTAL</p>
+                        <p class="summary-block-label">CONFIRMED</p>
                         <p id="summary-block-confirmed" class="summary-block-number"></p>
                         <p id="summary-block-delta-confirmed" class="summary-block-delta-number"></p>
                     </div>
-                    <div class="summary-block-data" >
-                        <p class="summary-block-label">ACTIVE</p>
-                        <p id="summary-block-active" class="summary-block-number"></p>
-                        <p id="summary-block-delta-active" class="summary-block-delta-number"></p>
-                    </div>
+                    
                     <div class="summary-block-data" >
                         <p class="summary-block-label">RECOVERED</p>
                         <p id="summary-block-recovered" class="summary-block-number"></p>
@@ -56,21 +69,30 @@
                         <p id="summary-block-fatality" class="summary-block-number"></p>
                         <p id="summary-block-delta-fatality" class="summary-block-delta-number"></p>
                     </div>
+                    <div class="summary-block-data" >
+                        <p class="summary-block-label">ACTIVE</p>
+                        <p id="summary-block-active" class="summary-block-number"></p>
+                        <p id="summary-block-delta-active" class="summary-block-delta-number"></p>
+                    </div>
                 </div>
-                <p id="update-time"></p>
+                <p id="total-tests"></p>
+                <p id="update-time"></p><span class="btn-refresh">REFRESH</span>
             </div>
 
             <div id="table-header-label-row" class="table-header-label-row">
                 <p class="table-header-label1"></p>
-                <p class="table-header-label2">TOTAL</p>
-                <p class="table-header-label3">TODAY</p>
+                <div class="confirmed-table-header">
+                    <p class="table-header-label2">TOTAL</p>
+                    <p class="table-header-label3">TODAY</p>
+                </div>
+                <p class="table-header-label4">ACTIVE</p>
             </div>
         </div>
         
         <div id="data-area">
             <div id="head-row">
-                <table id="data-table">
-
+                <table>
+                    <tbody id="data-table"></tbody>
                 </table>
             </div>
 
@@ -84,15 +106,13 @@
     
     <div class="container-footer">
         <img src="./public/images/lungs-virus-solid.png" alt="">
-        <p>COVID-19 INDIA Live Tracker (v2.2.0)  |  &copy 2020 naeemcee</p>
+        <p>COVID-19 INDIA Live Tracker (v2.2.1)  |  &copy 2020 naeemcee</p>
         <p>Data acquired via <a href="https://api.covid19india.org">covid19india.org</a></p>
     </div>
     
     <div class="spacer"></div>
     
     <script src="./public/scripts/bundle.js"></script>
-    <!-- <script src="./moment.min.js"></script> -->
-
 </body>
 
 </html>

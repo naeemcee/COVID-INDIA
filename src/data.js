@@ -12,6 +12,8 @@ const loadMasterData = () => {                          //load masterData from l
 const cleanupRawData = () => {              //cleanup and save raw-data into masterData array, with a summary item as first element
     let natSummary = []
     
+    console.log('Total Tested: ', numFormat(addlData.tested[addlData.tested.length - 1].totalsamplestested))
+
     for (let item in addlData.statewise) {
     
         masterData.push({
@@ -23,9 +25,9 @@ const cleanupRawData = () => {              //cleanup and save raw-data into mas
             recovered: Number(addlData.statewise[item].recovered),
             deltarecovered: Number(addlData.statewise[item].deltarecovered),
             active: addlData.statewise[item].confirmed - addlData.statewise[item].recovered - addlData.statewise[item].deaths,
-            deltaactive: addlData.statewise[item].deltaconfirmed - addlData.statewise[item].deltarecovered - addlData.statewise[item].deltadeaths
+            deltaactive: addlData.statewise[item].deltaconfirmed - addlData.statewise[item].deltarecovered - addlData.statewise[item].deltadeaths,
+            totaltested: (item == 0) ? Number(addlData.tested[addlData.tested.length - 1].totalsamplestested) : ''
         })
-            
         if (item > 0) {
             natSummary.push({
                 name: masterData[item].name,
@@ -34,7 +36,8 @@ const cleanupRawData = () => {              //cleanup and save raw-data into mas
                 deaths: masterData[item].deaths,
                 deltadeaths: masterData[item].deltadeaths,
                 recovered: masterData[item].recovered,
-                deltarecovered: masterData[item].deltarecovered
+                deltarecovered: masterData[item].deltarecovered,
+                active: masterData[item].confirmed -  masterData[item].recovered - masterData[item].deaths
             })    
         }
     }
@@ -55,7 +58,8 @@ const cleanupRawData = () => {              //cleanup and save raw-data into mas
                     recovered: rawData[j].districtData[k].recovered,
                     deltarecovered: rawData[j].districtData[k].delta.recovered,
                     deaths: rawData[j].districtData[k].deceased,
-                    deltadeaths: rawData[j].districtData[k].delta.deceased
+                    deltadeaths: rawData[j].districtData[k].delta.deceased,
+                    active: rawData[j].districtData[k].confirmed - rawData[j].districtData[k].recovered - rawData[j].districtData[k].deceased
                 })
                 //sort dist summary on 'confirmed'
                 sortData(distSummary, 'confirmed')
@@ -72,7 +76,7 @@ const cleanupRawData = () => {              //cleanup and save raw-data into mas
     masterData[0].name = "All States"
     masterData[0].districtData = [...natSummary]
     sortData(masterData, 'confirmed')
-    console.log('NEW MASTER >>', masterData)
+    // console.log('NEW MASTER >>', masterData)
     
     // API data recociliation - for audit purpose only
     let distDeltaConfirmed = 0
@@ -85,15 +89,15 @@ const cleanupRawData = () => {              //cleanup and save raw-data into mas
     console.log(`New Cases > from State data: ${Number(masterData[0].deltaconfirmed)}, from Dist data: ${distDeltaConfirmed}`)
 }
 
-/* 
-const getSettings = () => {
 
+const getSettings = () => {
+    localStorage.getItem('covidPrefs', settings)
 }
 
 const saveSettings = () => {
     console.log(settings)
-    localStorage.setItem('ctrackerSettings', JSON.stringify(settings))
-} */
+    localStorage.setItem('covidPrefs', JSON.stringify(settings))
+}
 
 const getData = async (url) => {
     const response = await fetch(url)
@@ -131,6 +135,16 @@ const sortData = (dArray, key) => {
             if (a.deltaconfirmed > b.deltaconfirmed) {
                 return -1
             } else if (a.deltaconfirmed < b.deltaconfirmed) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+    } else if (key === 'active'){
+        return dArray.sort ( (a, b) => {
+            if (a.active > b.active) {
+                return -1
+            } else if (a.active < b.active) {
                 return 1
             } else {
                 return 0
