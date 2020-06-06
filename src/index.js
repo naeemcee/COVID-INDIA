@@ -1,93 +1,27 @@
 import moment from 'moment'
-import { getData, sortData } from './data'
-import { renderData, populateDropdown, dropdownList } from './render'
+import { getData, sortData, cleanupRawData } from './data'
+import { renderData, populateDropdown, dropdownList, stateName } from './render'
 
 let settings = { intlFormat: 'en-US', showZeroState: false, autoUpdate: 0 }
 
 let newMaster = []              //holds 'cleaned up', sorted API data from both calls, with national summary as element 0
 let rawData = []                //holds copy of downloaded API data
 let addlData = []               // holds data from the second api call
+let scrollIndex = 0
+let scrollForward = true
 
 let activeState = 0             //index of the default state
 let updateTime = moment()
 
+// let stateName = document.querySelector('#state-name')
+let homeButton = document.querySelector('#home-button')
+let fwdButton = document.querySelector('#fwd-button')
+let backButton = document.querySelector('#back-button')
+
+
 let url1 = 'https://api.covid19india.org/data.json'                     //National time series, statewise stats and test counts	(NOT Working!!!)
 let url2 = 'https://api.covid19india.org/v2/state_district_wise.json'   //State-district-wise V2
 // let url3 = 'https://api.covid19india.org/deaths_recoveries.json'     //Deaths and Recoveries
-
-
-const cleanupRawData = () => {              //cleanup and save raw-data into masterData array, with a summary item as first element
-let natSummary = []
-
-for (let item in addlData.statewise) {
-
-    newMaster.push({
-        name: addlData.statewise[item].state,
-        confirmed: addlData.statewise[item].confirmed,
-        deltaconfirmed: addlData.statewise[item].deltaconfirmed,
-        deaths: addlData.statewise[item].deaths,
-        deltadeaths: addlData.statewise[item].deltadeaths,
-        recovered: addlData.statewise[item].recovered,
-        deltarecovered: addlData.statewise[item].deltarecovered,
-        active: addlData.statewise[item].confirmed - addlData.statewise[item].recovered - addlData.statewise[item].deaths,
-        deltaactive: addlData.statewise[item].deltaconfirmed - addlData.statewise[item].deltarecovered - addlData.statewise[item].deltadeaths
-    })
-        
-    if (item > 0) {
-        natSummary.push({
-            name: newMaster[item].name,
-            confirmed: newMaster[item].confirmed,
-            deltaconfirmed: newMaster[item].deltaconfirmed,
-            deaths: newMaster[item].deaths,
-            deltadeaths: newMaster[item].deltadeaths,
-            recovered: newMaster[item].recovered,
-            deltarecovered: newMaster[item].deltarecovered
-        })    
-    }
-}
-
-for (let item in newMaster) {           //get district details added to each state 
-    let distSummary = []
-
-    for (let j in rawData) {
-        if (newMaster[item].name.toLowerCase() == rawData[j].state.toLowerCase()) {
-            // newMaster[item].districtData = {...rawData[j].districtData}
-            //the above line is a simple one line replacement of the below for loop however, this copies the structure of the rawdata in terms of nested delta numbers within district data this is avoided now.
-            
-        for (let k in rawData[j].districtData) {
-            distSummary.push({
-                name: rawData[j].districtData[k].district,
-                confirmed: rawData[j].districtData[k].confirmed,
-                deltaconfirmed: rawData[j].districtData[k].delta.confirmed,
-                recovered: rawData[j].districtData[k].recovered,
-                deltarecovered: rawData[j].districtData[k].delta.recovered,
-                deaths: rawData[j].districtData[k].deceased,
-                deltadeaths: rawData[j].districtData[k].delta.deceased
-            })
-        }
-        newMaster[item].districtData = distSummary
-        } 
-    } 
-    if (!newMaster[item].districtData) {
-        newMaster[item].districtData = []
-    }
-}
-
-newMaster[0].name = "All States"
-newMaster[0].districtData = [...natSummary]
-sortData(newMaster, 'name')
-console.log('NEW MASTER >>', newMaster)
-
-// API data recociliation - for audit purpose only
-let distDeltaConfirmed = 0
-let i = 1       //exclude 'all states' item
-for (i ; i < newMaster.length; i++) {
-    for (let j in newMaster[i].districtData) {
-    distDeltaConfirmed += Number(newMaster[i].districtData[j].deltaconfirmed)
-    }
-}
-console.log(`New Cases > from State data: ${Number(newMaster[0].deltaconfirmed)}, from Dist data: ${distDeltaConfirmed}`)
-}
 
 
 const getAdditionalInfo = () => {                   //call this function to fetch additional info from url2
@@ -119,16 +53,91 @@ const getMainData = () => {
 
 getMainData()
 
-dropdownList.addEventListener('change',(e) => {
+/* dropdownList.addEventListener('change',(e) => {
     console.log(dropdownList.value, newMaster[dropdownList.value].name)
     
-    activeState = dropdownList.value
+    activeState = Number(dropdownList.value)
     renderData (activeState, 'confirmed')
     
-})
-
-/* document.querySelector('#data-table').addEventListener('clcik', (e) => {
-    console.log(e)
 }) */
 
-export { updateTime, newMaster, activeState, settings }
+document.querySelector('#table-header-label-row').addEventListener('click', (e) => {
+    let sortKey = 'name'
+    if (e.srcElement.textContent.toLowerCase().includes('total')) sortKey = 'confirmed'
+    if (e.srcElement.textContent.toLowerCase().includes('today')) sortKey = 'deltaconfirmed'
+
+    renderData(activeState, sortKey)
+})
+
+
+document.querySelector('#data-table').addEventListener('click', (e) => {
+    console.log('activeState: ', activeState)
+    if (activeState !== 0) return
+    
+    let state = e.target.parentElement.children[1].textContent.toLowerCase()
+
+    scrollIndex = Number(e.target.parentElement.children[0].textContent)
+
+    newMaster.forEach((item, index) => {
+        if (state == newMaster[index].name.toLowerCase()) {
+            console.log(index)
+            activeState = index
+            populateDropdown()
+            renderData(activeState, 'confirmed')
+        }
+    })
+    // stateName.textContent = newMaster[activeState].name.toUpperCase()
+    //enable the back button
+})
+
+homeButton.addEventListener ('click', (e) => {
+    stateName.textContent = 'ALL STATES'
+    activeState = 0
+    renderData(activeState, 'confirmed')
+    homeButton.visibility = 'hidden'
+    scrollIndex = 0
+    scrollForward = true
+})
+
+fwdButton.addEventListener ('click', (e) => {
+    console.log('scrollIndex:', scrollIndex)
+    if(scrollIndex < newMaster[0].districtData.length) {
+        if (!scrollForward) scrollIndex ++
+        for(let i = 0; i < newMaster[0].districtData.length + 1; i++){
+            if(newMaster[0].districtData[scrollIndex].name == newMaster[i].name)
+            activeState = i
+        }
+        scrollIndex += 1
+    } else return
+    scrollForward = true
+    renderData(activeState, 'confirmed')
+    
+    /* if(activeState < newMaster.length - 1) {
+        activeState += 1 
+        renderData(activeState, 'confirmed')
+    } */
+})
+
+backButton.addEventListener ('click', (e) => {
+    console.log('scrollIndex:', scrollIndex)
+    if(scrollForward) scrollIndex --
+    if(scrollIndex > 0 ) {
+        scrollIndex -= 1
+        for(let i in newMaster[0].districtData){
+            if(newMaster[0].districtData[scrollIndex].name == newMaster[i].name)
+            activeState = i
+        }
+    } else {
+        activeState = 0
+    }
+    scrollForward = false
+    renderData(activeState, 'confirmed')
+    // scrollIndex -= 1
+
+    /* if(activeState !== 0) {
+        activeState -= 1 
+        renderData(activeState, 'confirmed')
+    } */
+})
+
+export { updateTime, newMaster, addlData, rawData, activeState, settings }
