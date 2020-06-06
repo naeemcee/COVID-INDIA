@@ -20,8 +20,8 @@ module.exports = {
         }]
     },
     devServer: {
-        contentBase: path.resolve(__dirname, '.'),
-        publicPath: './scripts/'
+        contentBase: path.resolve(__dirname, ''),
+        publicPath: '/scripts/'
     },
     devtool: 'source-map'
 }
