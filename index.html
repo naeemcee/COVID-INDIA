@@ -34,6 +34,11 @@
                     <input id="chk-zero-states" type="checkbox" value='autoRefresh' checked="false">
                     <label for="chk-zero-states">Include states with zero cases</label>
                 </div>
+                <div class="default-state">
+                    <label for="state">Default state:</label>
+                    <input list="states" name="state" id="state" type="chcekbox">
+                    <button>SET</button>
+                </div>
             </section>
             
             <!-- <ul>
@@ -75,8 +80,24 @@
                         <p id="summary-block-delta-active" class="summary-block-delta-number"></p>
                     </div>
                 </div>
-                <p id="total-tests"></p>
-                <p id="update-time"></p><span class="btn-refresh">REFRESH</span>
+                <!-- <details>
+                    <summary class="btn-ext-info">INFO</summary>
+                    <div class="extended-data" style="display: none">
+                        <p id="total-tests"></p>
+                        <p id="update-time"></p><span class="btn-refresh">REFRESH</span>
+                    </div>
+                </details> -->
+                <div class="extended-info">
+                    <p class="btn-label">MORE INFO</p>
+                    <div class="btn-ext-info"></div>
+                    <div class="extended-data" style="display: none">
+                        <p id="total-tests"></p>
+                        <p id="tpm"></p>
+                        <p id="recovery-rate"></p>
+                        <p id="fatality-rate"></p>
+                        <p id="update-time"></p><span class="btn-refresh">REFRESH</span>
+                    </div>
+                </div>
             </div>
 
             <div id="table-header-label-row" class="table-header-label-row">
@@ -90,27 +111,33 @@
         </div>
         
         <div id="data-area">
-            <div id="head-row">
-                <table>
-                    <tbody id="data-table"></tbody>
-                </table>
-            </div>
+            <div id="head-row"></div>
+            <table>
+                <tbody id="data-table"></tbody>
+            </table>
 
         </div>
-        <div class="info">
-            <!-- <p>First case in India reported in Kerala on 30 JAN 2020, a student who came from Wuhan. Over the next one month, the total reported cases were onlhy 3.</p> -->
-            <!-- <p class="note">NOTE: district-wise <em>daily incremental cases count</em>  may not add up to state total as there is some delay in updating district-wise details.</p> -->
-        </div>
-    </div>
+        <!-- <div class="info">
+            <p>First case in India reported in Kerala on 30 JAN 2020, a student who came from Wuhan. Over the next one month, the total reported cases were onlhy 3.</p>
+            <p class="note">NOTE: district-wise <em>daily incremental cases count</em>  may not add up to state total as there is some delay in updating district-wise details.</p>
+        </div> -->
 
-    
-    <div class="container-footer">
-        <img src="./public/images/lungs-virus-solid.png" alt="">
-        <p>COVID-19 INDIA Live Tracker (v2.2.1)  |  &copy 2020 naeemcee</p>
-        <p>Data acquired via <a href="https://api.covid19india.org">covid19india.org</a></p>
     </div>
+        <div class="container-footer">
+            <img src="./public/images/lungs-virus-solid.png.png" alt="">
+            <p>COVID-19 INDIA Live Tracker (v2.2.2)  |  &copy 2020 naeemcee</p>
+            <p>Data acquired via <a href="https://api.covid19india.org">covid19india.org</a></p>
+        </div>
+
+    <datalist id="states">
+        <option value="All States">
+        <option value="Tamil Nadu">
+        <option value="Karnataka">
+        <option value="Kerala">
+        <option value="Maharashtra">
+    </datalist>
     
-    <div class="spacer"></div>
+    <!-- <div class="spacer"></div> -->
     
     <script src="./public/scripts/bundle.js"></script>
 </body>

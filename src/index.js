@@ -132,6 +132,21 @@ document.getElementById('chk-numFormat').addEventListener('change', (e) => {
     renderData(activeState, 'confirmed')
 })
 
+document.querySelector('.btn-ext-info').addEventListener('click', (e) => {
+    if(document.querySelector('.extended-data').style.display == "none") {
+        document.querySelector('.extended-data').style.display = "grid"
+        document.querySelector('.btn-ext-info').style.transform = "rotate(-180deg)"
+        // document.querySelector('.btn-ext-info').style.transform = "translateY(-20px)"
+        // document.querySelector('.extended-data').style.height = "100%"
+    }
+    else {
+        document.querySelector('.btn-ext-info').style.transform = "rotate(0deg)"
+        document.querySelector('.extended-data').style.display = "none"
+        // document.querySelector('.btn-ext-info').style.transform = "translateY(0px)"
+        // document.querySelector('.extended-data').style.height = "0"
+    }
+})
+
 // window.addEventListener('scroll', (e) => {
 //     console.log(e.target)
 // })

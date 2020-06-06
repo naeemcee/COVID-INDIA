@@ -26,7 +26,8 @@ const cleanupRawData = () => {              //cleanup and save raw-data into mas
             deltarecovered: Number(addlData.statewise[item].deltarecovered),
             active: addlData.statewise[item].confirmed - addlData.statewise[item].recovered - addlData.statewise[item].deaths,
             deltaactive: addlData.statewise[item].deltaconfirmed - addlData.statewise[item].deltarecovered - addlData.statewise[item].deltadeaths,
-            totaltested: (item == 0) ? Number(addlData.tested[addlData.tested.length - 1].totalsamplestested) : ''
+            totaltested: (item == 0) ? Number(addlData.tested[addlData.tested.length - 1].totalsamplestested) : '',
+            testspermillion: (item == 0) ? Number(addlData.tested[addlData.tested.length - 1].testspermillion) : ''
         })
         if (item > 0) {
             natSummary.push({
@@ -76,7 +77,7 @@ const cleanupRawData = () => {              //cleanup and save raw-data into mas
     masterData[0].name = "All States"
     masterData[0].districtData = [...natSummary]
     sortData(masterData, 'confirmed')
-    // console.log('NEW MASTER >>', masterData)
+    console.log('MASTER >>', masterData)
     
     // API data recociliation - for audit purpose only
     let distDeltaConfirmed = 0

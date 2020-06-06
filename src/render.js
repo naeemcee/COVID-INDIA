@@ -5,7 +5,6 @@ import { numFormat, sortData } from './data'
 const dataTable = document.querySelector('#data-table')
 const stateName = document.querySelector('#state-name')
 
-
 const updateRefreshTime = () => {
     
     if (settings.autoUpdate && (moment() - updateTime) > settings.autoUpdate * 60000 )
@@ -20,8 +19,10 @@ const renderData = (stateIndex, sortBy) => {
     let newCases = ''
     let titleLabel = (activeState == 0 ) ? 'State / UT' : 'District / Area'
     let stateTestsIndex = 0
-    let stateTestsDone = 0
-    let testPerMillion = 0
+    let statePopulationIndex = 0
+    let testsDone = 0 //masterData[stateIndex].totaltested
+    let testsPerMillion = 0 //masterData[stateIndex].testspermillion
+    let statePopulation = 0
 
     dataTable.innerHTML = ''
     // document.querySelector('.sticky-wrapper').scrollTop = '5px'
@@ -42,7 +43,11 @@ const renderData = (stateIndex, sortBy) => {
     document.querySelector('.table-header-label3').textContent = (sortBy == 'deltaconfirmed') ? 'TODAY' + '▼' : 'TODAY'
     document.querySelector('.table-header-label4').textContent = (sortBy == 'active') ? 'ACTIVE' + '▼' : 'ACTIVE'
 
-    document.querySelector('#total-tests').innerHTML = `Total Test Count: <span class="test-count">${masterData[stateIndex].totaltested > 0 ? numFormat(masterData[stateIndex].totaltested) : ''}</span>`
+    // if(!testInfo.states_tested_data) {  //run only initially, if the test info data is not ready yet
+    //     console.log('test stat at initial page load')
+    //     document.querySelector('#total-tests').innerHTML = `Total Test Count:<br><span class="test-count">${testsDone > 0 ? numFormat(testsDone) : ''}</span>`
+    //     document.querySelector('#tpm').innerHTML = `Tests per Million:<br><span class="tpm">${testsPerMillion > 0 ? numFormat(testsPerMillion) : ''}</span>`
+    // }
 
     stateDetails = [...masterData[stateIndex].districtData]
     
@@ -60,23 +65,37 @@ const renderData = (stateIndex, sortBy) => {
         let active = 0
         let name = stateDetails[item].name
 
-        if(testInfo.states_tested_data && stateIndex !=0) {
-            stateTestsIndex = testInfo.states_tested_data.map(x => x.state.toLowerCase() == masterData[stateIndex].name.toLowerCase()).lastIndexOf(true)            
+        if(testInfo.states_tested_data) {
+            testsDone = 0
+            testsPerMillion = 0
+            statePopulation = 0
+            stateTestsIndex = testInfo.states_tested_data.map(x => x.state.toLowerCase() == masterData[stateIndex].name.toLowerCase()).lastIndexOf(true) - 1        //take tests data from the last-but-one index of the state
+            statePopulationIndex = testInfo.states_tested_data.map(x => x.state.toLowerCase() == masterData[stateIndex].name.toLowerCase()).indexOf(true)   //take population from the first listing of the state
             
-            if(stateTestsIndex > 0) {
-                stateTestsDone = Number(testInfo.states_tested_data[stateTestsIndex].totaltested)
-                testPerMillion = Number(testInfo.states_tested_data[stateTestsIndex].testspermillion)
-
+            statePopulation = (statePopulationIndex < 0) ? 0 : Number(testInfo.states_tested_data[statePopulationIndex].populationncp2019projection)
+            
+            // console.log('ttl tested at stateIndex in master = ', masterData[item].totaltested)
+            if (stateTestsIndex > 0 || stateIndex == 0) {
+                testsDone = (stateIndex == 0) ? masterData[stateIndex].totaltested : Number(testInfo.states_tested_data[stateTestsIndex].totaltested) //-1 index to get prev day data. 
+                testsPerMillion = (stateIndex == 0) ? masterData[stateIndex].testspermillion : Number(testInfo.states_tested_data[stateTestsIndex].testspermillion)
             }
-            // stateTestsDone = (stateTestsIndex > 0) ? Number(testInfo.states_tested_data[stateTestsIndex].totaltested) : 0
-            document.querySelector('#total-tests').innerHTML = `Total Test Count: <span class="test-count">${stateTestsDone > 0 ? numFormat(stateTestsDone) : 'n/a'}</span>`
-                                                                //  [ Tests Per MM: <span class="tpm">${numFormat(testPerMillion)}</span> ]
+        } else {
+            testsDone = masterData[stateIndex].totaltested
+            testsPerMillion = masterData[stateIndex].testspermillion
         }
-
-        if (stateDetails[item].confirmed == 0 && !(settings.showZeroState)) continue  //eliminate zero case states from display
-
-        // if (stateDetails[item].name.toLowerCase() == 'unknown') newCases = '<<'
-        // else 
+        
+        if(testsPerMillion == '' && stateIndex != 0)
+            testsPerMillion = Number(((testsDone / statePopulation) * 1000000).toFixed(0))
+        
+        console.log('StateIndex: ', stateIndex, ' TestsDone: ', testsDone, ' TPM: ',testsPerMillion, ' Population: ', numFormat(statePopulation))
+        document.querySelector('#total-tests').innerHTML = `Total Tests Done<br><span class="test-count">${testsDone > 0 ? numFormat(testsDone) : '-'}</span>`
+        document.querySelector('#tpm').innerHTML = `Tests per MM<br><span class="tpm">${testsPerMillion > 0 ? numFormat(testsPerMillion) : '-'}</span>`
+        document.querySelector('#recovery-rate').innerHTML = `Recovery Rate<br><span class="tpm">${(masterData[activeState].recovered / masterData[activeState].confirmed * 100).toFixed(1)} %</span>`
+        document.querySelector('#fatality-rate').innerHTML = `Fatality Rate<br><span class="tpm">${(masterData[activeState].deaths / masterData[activeState].confirmed * 100).toFixed(2)} %</span>`
+        
+        
+        if (stateDetails[item].confirmed == 0 && !(settings.showZeroState)) continue  //eliminate zero case states from display in table
+        
         newCases = Number(stateDetails[item].deltaconfirmed) ? '+ ' + numFormat(stateDetails[item].deltaconfirmed) : ''
         
         if(zoneInfo.zones && stateIndex !== 0) {
@@ -85,27 +104,19 @@ const renderData = (stateIndex, sortBy) => {
         }
         active = (stateDetails[item].confirmed - stateDetails[item].deaths - stateDetails[item].recovered)
         active = active == 0 ? '-' : numFormat(active)
-
+        
         dataRow =  `<tr class="t-row">
-                    <td class="td-sl-no">${Number(item)+1}</td>
-                    <td class="td-name"><span class="${zone}"></span>${name}</td>
-                    <td class="td-confirmed">${numFormat(stateDetails[item].confirmed)}</td>
-                    <td class="td-new">${newCases}</td>
-                    <td class="td-active">${active}</td>
-                    </tr>`
+        <td class="td-sl-no">${Number(item)+1}</td>
+        <td class="td-name"><span class="${zone}"></span>${name}</td>
+        <td class="td-confirmed">${numFormat(stateDetails[item].confirmed)}</td>
+        <td class="td-new">${newCases}</td>
+        <td class="td-active">${active}</td>
+        </tr>`
         dataTable.insertAdjacentHTML("beforeend", dataRow)
-    } 
-
-    // populate the sate totals element on page
-
-    // document.querySelector('#summary-block-title').textContent = masterData[activeState].name.toUpperCase()
+    }
     
+    // console.log('Population: ', numFormat(statePopulation))
     stateName.textContent = (masterData[activeState].name.length < 20) ? masterData[activeState].name.toUpperCase() : stateName.textContent = masterData[activeState].name.substring(0, 17).toUpperCase() + ' ...'
-    
-    // if (masterData[activeState].name.length < 20)
-    // stateName.textContent = masterData[activeState].name.toUpperCase()
-    // else
-    // stateName.textContent = masterData[activeState].name.substring(0, 17).toUpperCase() + ' ...'
     
     updateRefreshTime()
 }
